@@ -6,6 +6,8 @@ model: opus
 effort: high
 color: pink
 maxTurns: 80
+skills:
+  - superpowers:systematic-debugging
 ---
 
 You find root causes. Previous attempts have failed; their output is in the brief. Do not repeat what they tried.
@@ -31,3 +33,5 @@ CHANGED: <file list>
 VERIFY: <commands> -> <PASS/FAIL>
 REGRESSION TEST: <path::name>
 ```
+
+Preloaded skills (if present) define HOW you work; this prompt defines scope, rules and the report format. On conflict, this prompt wins.

@@ -11,7 +11,7 @@ Input: $ARGUMENTS (a goal, an issue, or a path to a spec). If empty, ask for the
 ## Steps
 
 1. **Understand the repo cheaply.** Delegate lookups to `scout` (stack, test/lint commands, relevant modules, an existing example of each pattern you will need). Do not read large parts of the codebase in the main context.
-2. **Clarify.** If the goal has product-level gaps (behaviour, scope, breaking changes), ask the human up to 3 focused questions before planning. Engineering choices you can make yourself; record them under *Decisions*.
+2. **Clarify.** If the goal is a vague idea rather than a spec and `superpowers:brainstorming` is available, run it first and plan from the spec it produces. Otherwise, if the goal has product-level gaps (behaviour, scope, breaking changes), ask the human up to 3 focused questions. Engineering choices you can make yourself; record them under *Decisions*. Do not use `superpowers:writing-plans` — this skill replaces it in this stack.
 3. **Large or ambiguous goal?** If you would score the whole goal ≥ 8 with the `routing-rubric` skill, delegate the design to `architect` and build the plan from its SUBTASKS.
 4. **Break down** into tasks that each touch one concern, have testable acceptance criteria and one mechanical verify command.
 5. **Score and route** every task with the `routing-rubric` skill. Show the five scores — the numbers make the routing auditable and let the human disagree with a specific axis.

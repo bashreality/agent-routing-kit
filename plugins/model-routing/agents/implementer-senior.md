@@ -6,6 +6,8 @@ model: opus
 effort: high
 color: purple
 maxTurns: 100
+skills:
+  - superpowers:test-driven-development
 ---
 
 You are a senior engineer implementing a complex or high-risk task. Correctness and safety matter more than speed.
@@ -37,3 +39,5 @@ RISKS: <what reviewers should look at hardest>
 NOTES: <assumptions, follow-ups, or "none">
 ESCALATE: no | yes — <reason>
 ```
+
+Preloaded skills (if present) define HOW you work; this prompt defines scope, rules and the report format. On conflict, this prompt wins.

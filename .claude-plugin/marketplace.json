@@ -1,6 +1,6 @@
 {
   "name": "agent-routing-kit",
-  "description": "Model & effort routing for Claude Code subagents: tiered agents, routing rubric, plan template and orchestrator skills.",
+  "description": "Albert's Claude Code stack: model/effort routing (model-routing) + process discipline (superpowers) + minimal code (ponytail), wired to work together without overlap.",
   "owner": {
     "name": "Albert"
   },
@@ -8,7 +8,28 @@
     {
       "name": "model-routing",
       "source": "./plugins/model-routing",
-      "description": "Tiered subagents (Haiku/Sonnet/Opus x effort), routing rubric, /write-plan and /run-plan orchestration."
+      "description": "Tiered subagents (Haiku/Sonnet/Opus x effort), routing rubric, /write-plan and /run-plan orchestration. Owns planning and execution of the stack.",
+      "dependencies": ["superpowers", "ponytail"]
+    },
+    {
+      "name": "superpowers",
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers",
+        "ref": "v7.0.0",
+        "sha": "bb92a77741419a4ab5f06e711a283343f1ada0c3"
+      },
+      "description": "Pinned v7.0.0. Process skills: brainstorming, TDD, systematic debugging, worktrees, verification, finishing a branch."
+    },
+    {
+      "name": "ponytail",
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail",
+        "ref": "v5.3.2",
+        "sha": "16352ac229eb08a9598dcae48fe9f2b342567d86"
+      },
+      "description": "Pinned v5.3.2. Minimal-code mode for implementers, /ponytail-review, /ponytail-audit, /ponytail-debt."
     }
   ]
 }

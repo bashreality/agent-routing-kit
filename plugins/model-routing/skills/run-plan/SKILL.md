@@ -15,7 +15,7 @@ Arguments: $ARGUMENTS — plan path (default `PLAN.md`), optional `--from T-xx` 
 
 1. Read the plan. Check every task has: tier, agent, acceptance, verify. Missing tier → score it now with the `routing-rubric` skill.
 2. Re-check routing against the rubric overrides (R=2 → T2 + security-reviewer, A=2 → architect, S=2 → split). Fix the plan and tell the human what you changed and why.
-3. Make sure the working tree is clean or on a dedicated branch. If not, ask the human before starting.
+3. Make sure work happens on a dedicated branch. If `superpowers:using-git-worktrees` is available, use it to create an isolated worktree for the plan; otherwise check the tree is clean and on a feature branch, and ask the human if not. This skill replaces `superpowers:subagent-driven-development` and `superpowers:executing-plans` — do not run them alongside it.
 4. Print the dispatch table (id, title, agent, model/effort, depends_on, gate). With `--dry-run`, stop here.
 
 ## 1. Dispatch loop
@@ -29,7 +29,7 @@ For each ready task (all `depends_on` are DONE), in plan order:
    - `DONE` → run the task's verify via `verifier`. PASS → apply the review gate. FAIL → treat as failed.
    - `BLOCKED` → if you can answer from the plan or repo, answer and resume the same agent with `SendMessage`. If it is a product decision, ask the human. Never escalate a BLOCKED task.
    - `FAILED` → escalation ladder (rubric §5): retry same agent once with the failure, then one tier up, then `debugger`, then stop and report.
-5. **Review gate** (rubric §6). `CHANGES_REQUIRED` → send the issues back to the **same** implementer (SendMessage) and re-review. Two failed review rounds → escalate one tier.
+5. **Review gate** (rubric §6). `CHANGES_REQUIRED` → send the issues back to the **same** implementer (SendMessage), telling it to apply `superpowers:receiving-code-review` (verify each point, push back on wrong ones), then re-review. Two failed review rounds → escalate one tier.
 6. **Record** progress in the plan's *Progress log*: task id, agent actually used, attempts, result, one-line note. This is how a human (or a later session with `--from`) sees what happened.
 7. **Checkpoint.** After each phase, show the human a 3-5 line status. Ask before continuing only if something was escalated, blocked or re-scoped.
 
@@ -37,7 +37,9 @@ For each ready task (all `depends_on` are DONE), in plan order:
 
 1. `verifier` on the full test/lint/typecheck suite.
 2. One `reviewer` pass over the whole diff against the plan's goal (and `security-reviewer` if any task had R=2).
-3. Final summary: tasks done, escalations (which tier was wrong — feed this back into future plans), open follow-ups, anything the human must decide. Do not commit or push unless the human asked.
+3. If ponytail is installed, mention `/ponytail-debt` when implementers deferred shortcuts, so they are not forgotten.
+4. Final summary: tasks done, escalations (which tier was wrong — feed this back into future plans), open follow-ups, anything the human must decide. Apply `superpowers:verification-before-completion` to every claim in it.
+5. Offer `superpowers:finishing-a-development-branch` (merge / PR / keep) if available. Do not commit or push unless the human asked.
 
 ## Rules
 

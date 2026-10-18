@@ -4,6 +4,28 @@ Zestaw do Claude Code, który przy każdym zadaniu z planu wdrożenia wybiera na
 
 Zestaw jest przenośny między projektami: instalujesz go raz jako plugin (albo do `~/.claude`), a w każdym repo dopisujesz tylko krótki fragment do `CLAUDE.md`.
 
+## Stack: model-routing + superpowers + ponytail
+
+Jedna instalacja `model-routing` dociąga dwa pozostałe pluginy jako zależności. Ich wersje są przypięte do konkretnego taga i SHA w `marketplace.json`, więc żadna zmiana upstream nie wchodzi bez twojej decyzji.
+
+| Plugin | Rola w stacku |
+|---|---|
+| **model-routing** | Plan (`/write-plan`), wybór modelu i effortu, orkiestracja (`/run-plan`), bramki review |
+| **superpowers** v7.0.0 | Dyscyplina procesu: brainstorming, TDD, debugging, worktrees, weryfikacja, zamykanie gałęzi |
+| **ponytail** v5.3.2 | Minimum kodu w implementerach, `/ponytail-audit`, `/ponytail-debt` |
+
+**Jak unikamy dublowania:**
+- `model-routing` ma hook SessionStart, który wstrzykuje tabelę podziału ról (`plugins/model-routing/hooks/stack-contract.md`). Planowanie i wykonanie obsługuje `model-routing`. Tych skilli z superpowers stack nie używa: `writing-plans`, `subagent-driven-development`, `executing-plans`, `dispatching-parallel-agents`, `requesting-code-review`.
+- Pozostałe skille superpowers są wpięte w agentów:
+  - `implementer` i `implementer-senior` mają wstępnie załadowany `superpowers:test-driven-development`.
+  - `debugger` ma `superpowers:systematic-debugging`.
+  - `/run-plan` używa `using-git-worktrees`, `receiving-code-review`, `verification-before-completion` i `finishing-a-development-branch`.
+- Ponytail działa w implementerach przez swój hook SubagentStart. Do `reviewer` jest wstępnie załadowany `ponytail:ponytail-review`, żeby review wyłapywało przeinżynierowanie.
+- Ustaw `PONYTAIL_SUBAGENT_MATCHER` (patrz `examples/settings.json.example`), żeby ponytail nie trafiał do `scout`, `verifier` ani `security-reviewer`. Tam tylko marnuje tokeny, a w security review "minimalizm" nie jest celem.
+- Jeśli masz już superpowers albo ponytail z innego marketplace (np. `claude-plugins-official`), odinstaluj tamte kopie, żeby skille się nie dublowały.
+
+**Aktualizacja wersji upstream:** zmień `ref` i `sha` w `.claude-plugin/marketplace.json`, przejrzyj diff hooków upstream, a potem zrób commit i `claude plugin marketplace update agent-routing-kit`.
+
 ## Co jest w środku
 
 ```
@@ -70,10 +92,11 @@ Eskalacja przebiega tak: ponowienie u tego samego agenta → tier wyżej → `de
 **Opcja A: plugin (zalecana).** Łatwo go aktualizować i udostępnić zespołowi.
 
 ```bash
-claude plugin validate ./agent-routing-kit
-claude plugin marketplace add ./agent-routing-kit        # albo: <org>/<repo> po wypchnięciu na GitHub
-claude plugin install model-routing@agent-routing-kit    # scope: user = wszystkie projekty
+claude plugin marketplace add bashreality/agent-routing-kit
+claude plugin install model-routing@agent-routing-kit    # dociąga superpowers i ponytail, scope: user
 ```
+
+Opcjonalnie dopisz blok `env` z `examples/settings.json.example` do `~/.claude/settings.json`.
 
 Komendy mają wtedy prefiks: `/model-routing:write-plan` i `/model-routing:run-plan`.
 
@@ -82,6 +105,8 @@ Komendy mają wtedy prefiks: `/model-routing:write-plan` i `/model-routing:run-p
 ```bash
 ./agent-routing-kit/install-user.sh
 ```
+
+Opcja B nie instaluje superpowers ani ponytaila. Trzeba je wtedy doinstalować osobno, a odwołania `superpowers:*` i `ponytail:*` w agentach zadziałają tylko, jeśli te pluginy są włączone.
 
 Nie instaluj obu naraz, bo agenci będą zdublowani.
 

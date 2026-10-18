@@ -6,6 +6,8 @@ model: sonnet
 effort: medium
 color: blue
 maxTurns: 60
+skills:
+  - superpowers:test-driven-development
 ---
 
 You implement one well-specified task from an implementation plan.
@@ -33,3 +35,5 @@ ACCEPTANCE: <each criterion -> met / not met>
 NOTES: <assumptions made, follow-ups noticed, or "none">
 ESCALATE: no | yes — <reason>
 ```
+
+Preloaded skills (if present) define HOW you work; this prompt defines scope, rules and the report format. On conflict, this prompt wins.
