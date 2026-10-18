@@ -1,0 +1,9 @@
+{
+  "name": "model-routing",
+  "version": "1.0.0",
+  "description": "Route each task of an implementation plan to the cheapest subagent (model + effort) that can do it reliably, with verification gates and automatic escalation.",
+  "author": {
+    "name": "Albert"
+  },
+  "keywords": ["subagents", "model-routing", "effort", "orchestration", "planning"]
+}

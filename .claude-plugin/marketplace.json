@@ -1,0 +1,14 @@
+{
+  "name": "agent-routing-kit",
+  "description": "Model & effort routing for Claude Code subagents: tiered agents, routing rubric, plan template and orchestrator skills.",
+  "owner": {
+    "name": "Albert"
+  },
+  "plugins": [
+    {
+      "name": "model-routing",
+      "source": "./plugins/model-routing",
+      "description": "Tiered subagents (Haiku/Sonnet/Opus x effort), routing rubric, /write-plan and /run-plan orchestration."
+    }
+  ]
+}
