@@ -1,8 +1,7 @@
 ---
 name: build
-description: Execute a plan written by /plan (superpowers format with Route lines) using routed subagents, cheap gates and escalation. Run only when the user explicitly asks.
+description: Use when executing an implementation plan (superpowers format, with or without Route lines) — replaces subagent-driven-development and executing-plans with routed subagents, batched reviews and escalation.
 argument-hint: "[plan path] [--from N] [--dry-run]"
-disable-model-invocation: true
 ---
 
 # /build — routed execution

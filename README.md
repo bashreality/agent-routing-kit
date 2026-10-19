@@ -15,13 +15,18 @@ claude plugin install model-routing@agent-routing-kit     # dociąga superpowers
 
 Jeśli masz superpowers albo ponytail z innego marketplace, odinstaluj tamte kopie (`claude plugin list`). Ponytail wymaga Node.js.
 
-## Użycie: dwie komendy
+## Użycie: automatycznie, komendy są opcjonalne
 
-| Co chcesz | Co robisz |
+Piszesz tak jak dotąd. Wszystko odpala się samo, tak jak w superpowers:
+
+| Sytuacja | Co się dzieje |
 |---|---|
-| Mała zmiana, pytanie, fix | Po prostu piszesz. Bez planu i bez agentów |
-| Funkcja lub większa zmiana | `/model-routing:plan <co zbudować>`, przeglądasz plan |
-| Wykonanie planu | `/model-routing:build` (`--dry-run`: tylko tabela, `--from 5`: wznowienie od Task 5) |
+| Mała zmiana, pytanie, fix | Claude robi to od razu, bez planu i bez agentów |
+| Niejasny pomysł na funkcję | Uruchamia się brainstorming superpowers |
+| Potrzebny plan | Uruchamia się `plan`: plan w formacie superpowers z linią `Route:` przy każdym zadaniu |
+| Akceptujesz plan ("ok, rób") | Uruchamia się `build`: tańsze wykonanie zamiast `subagent-driven-development` |
+
+Komendy przydają się tylko wtedy, gdy chcesz coś wymusić: `/model-routing:plan <co zbudować>` oraz `/model-routing:build` (z `--dry-run`, żeby zobaczyć samą tabelę, albo `--from 5`, żeby wznowić od Task 5).
 
 Najlepiej uruchamiać sesję główną na **Opus / medium**. Ona tylko planuje i deleguje, a ciężką pracę robią subagenci.
 

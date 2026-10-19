@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Plan a feature with superpowers' plan format plus a model-routing line per task, ready for /build. Use when the user asks for an implementation plan or wants to build something multi-step.
+description: Use instead of superpowers:writing-plans whenever a multi-step plan is needed — runs writing-plans and adds a model-routing line per task, ready for /build.
 argument-hint: "<what to build, or path to a spec>"
 ---
 

@@ -1,6 +1,6 @@
 {
   "name": "model-routing",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Superpowers-compatible routing layer: /plan adds a model/effort route to every task of a superpowers plan, /build executes it with cheap subagents, batched reviews and escalation.",
   "author": {
     "name": "Albert"
