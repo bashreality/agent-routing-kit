@@ -8,8 +8,11 @@
     {
       "name": "model-routing",
       "source": "./plugins/model-routing",
-      "description": "Tiered subagents (Haiku/Sonnet/Opus x effort), routing rubric, /write-plan and /run-plan orchestration. Owns planning and execution of the stack.",
-      "dependencies": ["superpowers", "ponytail"]
+      "description": "Routing layer on top of superpowers: /plan (superpowers plan + model/effort per task) and /build (cheap routed execution, batched reviews, escalation).",
+      "dependencies": [
+        "superpowers",
+        "ponytail"
+      ]
     },
     {
       "name": "superpowers",

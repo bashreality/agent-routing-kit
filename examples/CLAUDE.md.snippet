@@ -1,8 +1,5 @@
-## Model routing (agent-routing-kit)
+## Claude Code stack (agent-routing-kit)
 
-- Plans: `/model-routing:write-plan <goal>` → `PLAN.md`; execution: `/model-routing:run-plan`.
-- Before delegating any coding task, apply the `routing-rubric` skill. Use the cheapest tier that will succeed first time; never skip verify or review gates.
-- Project overrides (edit per repo):
-  - Paths with R=2 by definition: `src/auth/**`, `src/billing/**`, `migrations/**`, `infra/**`, `*.tf`, `Dockerfile*`, `.github/workflows/**`
-  - Test: `<cmd>` · Lint: `<cmd>` · Typecheck: `<cmd>`
-  - Max concurrent implementers: 3
+- Features: `/model-routing:plan <goal>` → review → `/model-routing:build`. Small changes: just do them.
+- Test: `<cmd>` · Lint: `<cmd>` · Typecheck: `<cmd>`
+- Always risk R=2 (minimum T2 + security review): `src/auth/**`, `src/billing/**`, `migrations/**`, `infra/**`, `*.tf`, `Dockerfile*`, `.github/workflows/**`

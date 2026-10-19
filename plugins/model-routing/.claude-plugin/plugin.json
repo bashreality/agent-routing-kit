@@ -1,7 +1,7 @@
 {
   "name": "model-routing",
-  "version": "1.1.0",
-  "description": "Route each task of an implementation plan to the cheapest subagent (model + effort) that can do it reliably, with verification gates and automatic escalation.",
+  "version": "2.0.0",
+  "description": "Superpowers-compatible routing layer: /plan adds a model/effort route to every task of a superpowers plan, /build executes it with cheap subagents, batched reviews and escalation.",
   "author": {
     "name": "Albert"
   },
